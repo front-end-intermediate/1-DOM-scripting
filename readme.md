@@ -1,43 +1,39 @@
 # Introduction
 
-<!-- v 1.1 -->
-
 - [Introduction](#introduction)
   - [Code of Conduct](#code-of-conduct)
   - [Resources](#resources)
     - [Github](#github)
     - [Reading](#reading)
   - [Homework](#homework)
+  - [Today's Game](#todays-game)
   - [Today's Homework](#todays-homework)
   - [This Week's Reading](#this-weeks-reading)
   - [Summary of Tools and Technology](#summary-of-tools-and-technology)
   - [VSCode](#vscode)
     - [VSCode Extensions](#vscode-extensions)
   - [The Command Line](#the-command-line)
-  - [DO THIS](#do-this)
-  - [Single Page App](#single-page-app)
+  - [Examine the Starter Page](#examine-the-starter-page)
+  - [A Single Page App](#a-single-page-app)
+    - [Friends Don't Let Friends Browse in Light Mode](#friends-dont-let-friends-browse-in-light-mode)
+    - [Smooth Scrolling with Page Fragments](#smooth-scrolling-with-page-fragments)
   - [DOM Scripting Review](#dom-scripting-review)
     - [.querySelectorAll()](#queryselectorall)
     - [.querySelector()](#queryselector)
   - [Looping - for and forEach()](#looping---for-and-foreach)
   - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
-    - [Aside - Template Literals](#aside---template-literals)
+    - [Template Literals](#template-literals)
+    - [Arrow Functions](#arrow-functions)
     - [Aside: React](#aside-react)
   - [EXERCISE II - Content Generation with an Array of Objects](#exercise-ii---content-generation-with-an-array-of-objects)
     - [Aside: Objects](#aside-objects)
-    - [Array Methods](#array-methods)
-      - [Array.prototype.filter()](#arrayprototypefilter)
-      - [Arrow Functions](#arrow-functions)
-      - [Array.prototype.map() and join()](#arrayprototypemap-and-join)
-      - [Array.prototype.sort()](#arrayprototypesort)
-      - [Array.prototype.reduce()](#arrayprototypereduce)
-  - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
-  - [EXERCISE - Sticky Menu](#exercise---sticky-menu)
   - [EXERCISE - AJAX and APIs](#exercise---ajax-and-apis)
   - [EXERCISE - Adding Content](#exercise---adding-content)
     - [The fetch() API](#the-fetch-api)
+  - [END](#end)
   - [EXERCISE - News Section Headers](#exercise---news-section-headers)
-    - [Array.slice(), Array.filter](#arrayslice-arrayfilter)
+  - [Instructor Notes - students may ignore eveything after this point](#instructor-notes---students-may-ignore-eveything-after-this-point)
+    - [Immediately Invoked Function Expression](#immediately-invoked-function-expression)
     - [Local Storage](#local-storage)
 
 ## Code of Conduct
@@ -75,9 +71,20 @@ Online reading and videos will be assigned.
 
 Homework will be handed in via Github and then alerting me via email - daniel.deverell@nyu.edu. I will have special sessions for those unfamiliar with Git and Github.
 
+## Today's Game
+
+Its important to me to know where you are in your learning journey. During today's class, keep the Zoom chat open and enter one of the following as appropriate:
+
+! - I've heard of this before and used it
+!! - I've heard of this before but never used it
+!!! - I've never heard of this before
+!!!! - I've never heard of this before and I'm scared
+
+I will periodically review any messages and use the results to adjust the pace of the class.
+
 ## Today's Homework
 
-- CSS/HTML - using the sample at [https://john-doe.neocities.org/](https://john-doe.neocities.org/), use URL hashes as opposed to scrolling to implement navigation on our page. (Hint: inspect `<header>` and `<main>`.) The resulting page should be tested against unwanted srolling. Try making the nav bar static.
+- CSS/HTML - using the sample at [https://john-doe.neocities.org/](https://john-doe.neocities.org/), use URL hashes as opposed to scrolling to implement navigation on our page. (Hint: inspect `<header>` and `<main>`.) Try making the nav bar static.
 - Install [Git](https://git-scm.com)
 - Install [NodeJS](https://nodejs.org)
 - Create a Github account
@@ -104,9 +111,9 @@ A listing of applications and technologies you will be introduced to in the clas
 
 ## VSCode
 
-In today's class we will implement [this single page web site](http://oit2.scps.nyu.edu/~devereld/intermediate/app/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
+In today's class we will implement [this single page web site](https://intermediate-lesson-one.netlify.app/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
 
-Note the navigation on small screen.
+Note the navigation on small screen and the response to changing the OS between light and dark mode.
 
 In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
 
@@ -154,7 +161,7 @@ $ ls -al  // list file with flags that expand the command
 $ pwd  // print working directory
 ```
 
-## DO THIS
+## Examine the Starter Page
 
 `cd` into today's working directory - and type:
 
@@ -164,9 +171,17 @@ code .
 
 Open `index.html`, right click on it and choose 'Open with Live Server'.
 
-## Single Page App
+Examine the page in the dev tools. Note the responsive navigation using the toggle device toolbar.
 
-Add setting for dark mode:
+Here's the [responsive hamburger menu technique](https://medium.com/@heyoka/responsive-pure-css-off-canvas-hamburger-menu-aebc8d11d793) used in today's sample.
+
+## A Single Page App
+
+We are currenly view a single page application. We could mimic a multi page app using css.
+
+### Friends Don't Let Friends Browse in Light Mode
+
+As an enhancement, we will add settings for light and dark modes using [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme):
 
 ```css
 @media (prefers-color-scheme: dark) {
@@ -177,14 +192,28 @@ Add setting for dark mode:
     --highlight: #ffc400;
   }
 }
+@media (prefers-color-scheme: light) {
+  * {
+    --textcolor: #333;
+    --bgcolor: #fff;
+    --bgcolor-darker: #ddd;
+    --highlight: #ffc400;
+  }
+}
+
 body {
   color: var(--textcolor);
-  background: var(--bgcolor);
-}
-.site-wrap {
   background: var(--bgcolor-darker);
 }
+
+.site-wrap {
+  background: var(--bgcolor);
+}
 ```
+
+(There may be some additional changes required in the css file.) Use the system preferences (appearance on a Mac) to test.
+
+Add the following to make only one section visible at a time:
 
 ```css
 section {
@@ -196,38 +225,52 @@ section:target {
 }
 ```
 
-See demo: https://john-doe.neocities.org/
+Note the [section:target](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors/Using_the_:target_pseudo-class_in_selectors) selector.
 
-Or:
+See a demo [here](https://john-doe.neocities.org/).
+
+### Smooth Scrolling with Page Fragments
+
+Or, if we prefer a scrolling app, comment out the two css rules above and add:
 
 ```css
 html {
   scroll-behavior: smooth;
-}
-
-/**
- * Disable smooth scrolling when users have prefers-reduced-motion enabled
- */
-@media screen and (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
 }
 ```
 
 Add jump links to the top of the page in each section:
 
 ```html
+<!-- an id for the top -->
 <body id="top">
   ...
-  <a href="#top">Back to top</a>
+  <!-- before the close of each of the sections -->
+  <a style="color: var(--highlight)" href="#top">Back to top</a>
   ...
 </body>
 ```
 
-And style them using the highlight color variable in the CSS file.
+The menu scrolls off the screen and we want to to be available at all times.
 
-Note: the [responsive hamburger menu technique](https://medium.com/@heyoka/responsive-pure-css-off-canvas-hamburger-menu-aebc8d11d793) used in today's sample required that we leave the first link in place. See the article and `nav.css` for more information.
+We will anchor the menu to the top of the screen once the user has scrolled to the point where the menu would normally be out of sight using the css position property.
+
+Edit the CSS in `nav.css` (inside the media query).
+
+```css
+.main-menu {
+  display: block;
+  position: static;
+  background: #007eb6;
+  width: 100%;
+  position: sticky;
+  top: 0px;
+}
+```
+
+Note: this would be considered a progressive enhancement as `sticky` is not supported in all browsers. (Support might be extended by following the instructions on [Can I Use](https://caniuse.com/#feat=css-sticky).)
+
+<!-- Note: the [responsive hamburger menu technique](https://medium.com/@heyoka/responsive-pure-css-off-canvas-hamburger-menu-aebc8d11d793) used in today's sample requires that we leave the first link in place. See the article and `nav.css` for more information. -->
 
 ## DOM Scripting Review
 
@@ -270,9 +313,11 @@ for (let i = 0; i < elems.length; i++) {
 }
 ```
 
-ES6 introduced the [`forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) method for looping over arrays.
+ES6 introduced the [`forEach()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) method for looping over arrays. We use forEach when we want to perform some sort of action on every item in an array.
 
-You pass a [callback function](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function) into `forEach()`. The first argument is the current item in the loop. The second is the current index in the array.
+The forEach method accepts a function as its argument. This is commonly known as a [callback function](https://developer.mozilla.org/en-US/docs/Glossary/Callback_function). The term “callback function” refers to a function that we pass to another function.
+
+The first argument in the callback is the current item in the loop. The second (optional) is the current index in the array.
 
 ```js
 var elems = document.querySelectorAll(".main-menu a");
@@ -291,7 +336,7 @@ Note the two script tags at the bottom of `index.html`:
 
 ```html
 <script src="js/navitems.js"></script>
-<script src="js/myscripts.js"></script>
+<script src="js/index.js"></script>
 ```
 
 Examine `navitems.js`.
@@ -311,9 +356,9 @@ Both have a length property - `navList.length` and `navItemsArray.length` but th
 
 **Note that we have 8 items in the `navItemsArray` but only 6 in our `navList`.**
 
-**In `myscripts.js`**
+**In `index.js`**
 
-Select the HTML element with the class `.main-menu` In `myScripts.js`:
+Select the HTML element with the class `.main-menu` In `index.js`:
 
 ```js
 const nav = document.querySelector(".main-menu");
@@ -346,16 +391,18 @@ for (let i = 0; i < navList.length; i++) {
 }
 ```
 
-The `innerHTML` property can be used to both get and set HTML content in an element.
+We can tell that the text being displayed in the UI is coming from the navItemsArray because they are now capitalized.
+
+Note: the `innerHTML` property can be used to both _get_ and _set_ HTML content in an element.
 
 In the browser console:
 
 ```js
-> var elem = document.querySelector(".site-wrap");
+let elem = document.querySelector(".site-wrap");
 // Get HTML content
-> var html = elem.innerHTML;
+let html = elem.innerHTML;
 // Set HTML content
-> elem.innerHTML =
+elem.innerHTML =
   'We can dynamically change the HTML to include <a href="#">HTML elements</a>.';
 ```
 
@@ -376,7 +423,7 @@ Edit the HTML to remove the navigation links:
     <span class="sr-only">Close main menu</span>
     <span class="fa fa-close" aria-hidden="true"></span>
   </a>
-  <ul></ul>
+  <!-- HERE -->
 </nav>
 ```
 
@@ -387,30 +434,32 @@ Append a `<ul>` tag to nav using:
 
 JavaScript offers a number of methods to determine the insertion point.
 
+In the console one at a time:
+
 ```js
 // Create a new HTML element and add some text
-> var elem = document.createElement("div");
-> elem.textContent = "Hello world";
+var elem = document.createElement("div");
+elem.textContent = "I'm inserted via DOM scripting";
 
 // Get the element to add your new HTML element before, after, or within
-> var target = document.querySelector(".main-menu");
+var target = document.querySelector(".main-menu");
 
 // Inject the `div` element before the element
-> target.before(elem);
+target.before(elem);
 
 // Inject the `div` element after the element
-> target.after(elem);
+target.after(elem);
 
 // Inject the `div` element before the first item *inside* the element
-> target.prepend(elem);
+target.prepend(elem);
 
 // Inject the `div` element after the first item *inside* the element
-> target.append(elem);
+target.append(elem);
 ```
 
 Let's append a new div to the (now empty) nav.
 
-**Delete eveything in `myscripts` and add:**
+**Delete eveything in `index.js` and add:**
 
 ```js
 const nav = document.querySelector(".main-menu");
@@ -439,34 +488,17 @@ for (let i = 0; i < navItemsArray.length; i++) {
 nav.append(navList);
 ```
 
-Our nav bar now displays all the items in our array but the code is ugly. This is an example of [imperative programming](https://tylermcginnis.com/imperative-vs-declarative-programming/). In order to prepare for React we need to adopt a more **declarative** style.
+Note the use of quotes in the construction or concatination of our innerHTML: `listItem.innerHTML = '<a href="#">' + linkText + "</a>"`. We also used the addition operator (+).
+
+Our nav bar now displays all the items in our array but the code is a bit ugly. This is an example of [imperative programming](https://tylermcginnis.com/imperative-vs-declarative-programming/). In order to prepare for React we need to adopt a more **declarative** style.
 
 We will use [Functional Programming](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0) techniques.
 
-(See the `filter` examples `students.js` in today's `other` folder. Use [RunJS](https://runjs.app/).)
+<!-- (See the `filter` examples `students.js` in today's `other` folder. Use [RunJS](https://runjs.app/).) -->
 
 ---
 
-### Aside - Template Literals
-
-Note that we used single quotes in the construction of our innerHTML: `listItem.innerHTML = '<a href="#">' + linkText + '</a>'`. Compare old school concatenation and the variable 'sentence' bu running the following in the console:
-
-```js
-const name = "Yorik";
-const age = 2;
-const oldschool = "My dog " + name + " is " + age * 7 + "years old.";
-const newschool = `My dog ${name} is ${age * 7} years old.`;
-console.log("oldschool ", oldschool);
-console.log("newschool ", newschool);
-```
-
-[Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside plaeholders - `${ ... }`.
-
----
-
-<!-- end aside  -->
-
-Switch out the concatenation for a _template string_:
+First, switch out the old school concatenation for a _template string_:
 
 ```js
 for (let i = 0; i < navItemsArray.length; i++) {
@@ -476,17 +508,34 @@ for (let i = 0; i < navItemsArray.length; i++) {
 }
 ```
 
-Note: if we wanted we could derive the hash from the Array values:
+---
+
+### Template Literals
+
+[Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside plaeholders - `${ ... }`.
+
+In earlier versions of JavaScript, if we wanted to dynamically create strings, we needed to use the addition operator (+). Modern JavaScript allows us to embed variables and other expressions right inside strings
+
+Compare old school concatenation by running the following in the console:
 
 ```js
-for (let i = 0; i < navItemsArray.length; i++) {
-  let listItem = document.createElement("li");
-  listItem.innerHTML = `<a href="#${navItemsArray[i].toLowerCase()}">${
-    navItemsArray[i]
-  }</a>`;
-  navList.append(listItem);
-}
+const name = "Yorik";
+const age = 2;
+const oldschool = "My dog " + name + " is " + age * 7 + "years old.";
+const newschool = `My dog ${name} is ${age * 7} years old.`;
+console.log("oldschool::", oldschool);
+console.log("newschool::", newschool);
 ```
+
+In order to use string interpolation, we need to use backticks (`). If you're using a standard QWERTY North American keyboard, the key is found in the top-left corner, above “Tab”. It shares a key with the tilde (~) character.
+
+Strings created with backticks are known as “template strings”. For the most part, they function just like any other string, but they have this one super-power: they can embed dynamic segments.
+
+We create a dynamic segment within our string by writing `${}`. Anything placed between the squiggly brackets will be evaluated as a JavaScript expression.
+
+---
+
+<!-- end aside  -->
 
 Use `forEach()` instead of a for loop:
 
@@ -501,28 +550,268 @@ navItemsArray.forEach(function (item) {
 Use an arrow function in the final script:
 
 ```js
-const nav = document.querySelector(".main-menu");
-
-const navList = document.createElement("ul");
-
 navItemsArray.forEach((item) => {
   let listItem = document.createElement("li");
   listItem.innerHTML = `<a href="#">${item}</a>`;
   navList.appendChild(listItem);
 });
+```
 
-nav.append(navList);
+### Arrow Functions
+
+[Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are commonly used as a shorter syntax for anonymous functions although they have additional functionality.
+
+Historically, functions in JavaScript have been written using the function keyword:
+
+```js
+function exclaim(string) {
+  return string + "!";
+}
+```
+
+In 2015, the language received an alternative syntax for creating functions: arrow functions. They look like this:
+
+```js
+const exclaim = (string) => string + "!";
+```
+
+Arrow functions are inspired by so-called lambda functions from other functional programming languages. Their main benefit is that they're much shorter and cleaner. Reducing "clutter" may seem like an insignificant benefit, but it can really help improve readability when working with anonymous functions?. For example:
+
+```js
+const arr = ["hey", "ho", "let's go"];
+
+// This:
+arr
+  .map(function (string) {
+    return string + "!";
+  })
+  .join(" ");
+
+// …Becomes this:
+arr.map((string) => string + "!").join(" ");
+```
+
+Arrow functions might seem straightforward at first glance, but there are a few “gotchas” to be aware of. It's super common for folks to get tripped up by some of these rules.
+
+There are two types of arrow functions: short and long form.
+
+Short form:
+
+```js
+const add1 = (n) => n + 1;
+```
+
+Long form;
+
+```js
+const add1 = (n) => {
+  return n + 1;
+};
+```
+
+The short-form function's body must be a single expression while the long-form function's body can contain one or more statements.
+
+When we add the curly braces and convert to the long-form, our function can now execute multiple instructions. For example, we can use the long-form if we want to perform a check before the main bit of logic:
+
+```js
+const add1 = (n) => {
+  if (typeof n !== "number") {
+    throw new Error("Argument provided must be a number");
+  }
+
+  return n + 1;
+};
+```
+
+Note the parentheses in `(n) =>`. The parentheses are optional:
+
+<!-- prettier-ignore -->
+```js
+// This is valid:
+const logUser = user => {
+  console.log(user);
+}
+
+// This is also valid:
+const logUser = (user) => {
+  console.log(user);
+}
+```
+
+Parentheses are mandatory if we have more than 1 parameter:
+
+```js
+const updateUser = (user, properties, isAdmin) => {
+  if (!isAdmin) {
+    throw new Error("Not authorized");
+  }
+
+  user.setProperties(properties);
+};
+
+updateUser("Daniel", { id: 90 }, false);
+```
+
+The parentheses are also mandatory if we have no parameters:
+
+```js
+const sayHello = () => console.log("Hello!");
 ```
 
 ---
 
 ### Aside: React
 
-Open for reference `other > React > 1-react.html` in a browser using [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
+Open for reference `other > React > 0-no-react.html` in a browser using [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
 
-Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React -at its most basic - is simply an alternate way to create DOM elements.
+```html
+<html>
+  <body>
+    <div id="root"></div>
+    <code>
+      <pre>
+        function render(fakeReactElement, containerElement) {
+            // 1. create a DOM element
+            const domElement = document.createElement(reactElement.type);
+          
+            // 2. update properties
+            domElement.innerText = reactElement.children;
+            for (const key in reactElement.props) {
+              const value = reactElement.props[key];
+              domElement.setAttribute(key, value);
+            }
+          
+            // 3. put it in the container
+            containerElement.appendChild(domElement);
+          }
+    </pre
+      >
+    </code>
+  </body>
+  <script>
+    function render(fakeReactElement, containerElement) {
+      // 1. create a DOM element
+      const domElement = document.createElement(fakeReactElement.type);
 
-The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to help create a DOM element.
+      // 2. update properties
+      domElement.innerText = fakeReactElement.children;
+      for (const key in fakeReactElement.props) {
+        const value = fakeReactElement.props[key];
+        domElement.setAttribute(key, value);
+      }
+
+      // 3. put it in the container
+      containerElement.appendChild(domElement);
+    }
+
+    const fakeReactElement = {
+      type: "a",
+      props: {
+        href: "https://wikipedia.org/",
+      },
+      children: "Read more on Wikipedia",
+    };
+
+    const containerElement = document.querySelector("#root");
+
+    render(fakeReactElement, containerElement);
+  </script>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script src="https://unpkg.com/react@16.3.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.3.0/umd/react-dom.development.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/javascript">
+      const rootElement = document.getElementById("root");
+
+      /* vanilla js */
+      const element = document.createElement("a");
+      element.textContent = "Wikipedia";
+      element.className = "container";
+      element.href = "https://wikipedia.org/";
+      rootElement.appendChild(element);
+
+      /* React */
+      // const element = React.createElement(
+      //   "a",
+      //   {
+      //     className: "container",
+      //     href: "https://wikipedia.org/",
+      //   },
+      //   "Wikipedia"
+      // );
+
+      console.log(element);
+
+      // ReactDOM.render(element, rootElement);
+    </script>
+  </body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@16.3.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.3.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+    <script type="text/babel">
+      const rootElement = document.getElementById("root");
+
+      const Link = (props) => {
+        return (
+          <li>
+            <a href={props.href}>{props.linkText}</a>
+          </li>
+        );
+      };
+
+      const Links = () => {
+        return (
+          <ul>
+            <Link linkText="Wikipedia" href="https://wikipedia.org/" />
+            <Link linkText="Google" href="https://google.com/" />
+            <Link linkText="Apple" href="https://apple.com" />
+          </ul>
+        );
+      };
+
+      ReactDOM.render(
+        // <Link linkText="Wikipedia" href="https://wikipedia.org/" />,
+        <Links />,
+        rootElement
+      );
+    </script>
+  </body>
+</html>
+```
+
+Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React - at its most basic - is an alternate way to create reusable DOM elements.
+
+The second file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to compile JSX - an html-like feature.
 
 ---
 
@@ -589,6 +878,18 @@ navItemsObject.forEach(function (item) {
 
 Navigate and inspect the code and note that we now have anchor tags with page fragment links in our html and are able to navigate within our page.
 
+Note: if we wanted we could derive the hash (href) from the Array values. In real life this would rarely be the case:
+
+```js
+for (let i = 0; i < navItemsArray.length; i++) {
+  let listItem = document.createElement("li");
+  listItem.innerHTML = `<a href="#${navItemsArray[i].toLowerCase()}">${
+    navItemsArray[i]
+  }</a>`;
+  navList.append(listItem);
+}
+```
+
 ### Aside: Objects
 
 Open `other > javascript > Objects > objects.html` in a browser tab.
@@ -634,7 +935,7 @@ const { twitter, facebook } = me.links.social;
 const { twitter: twit } = me.links.social;
 ```
 
-This is an example of [destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) - a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables. We will be using it extensively in this class.
+This is an example of [object destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) - a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables. We will be using it extensively in this class.
 
 Create a multi-line template string and display it on the page:
 
@@ -649,15 +950,16 @@ const content = `
     <p>Facebook: ${facebook}</p>
 </div>
 `;
+
 document.body.innerHTML = content;
 ```
 
-and an Array:
+<!-- and an Array:
 
 ```js
 const test = ["one", "two", "three", "four"];
 const [foo, bar, ...rest] = test;
-```
+``` -->
 
 ---
 
@@ -665,7 +967,13 @@ const [foo, bar, ...rest] = test;
 
 ### Array Methods
 
-We'll generate our nav using Array methods `map`, `filter` with arrow functions.
+JavaScript gives us several tools for iterating over the items in an array. We could have used a for loop, and it's arguably much simpler. There are no complicated callback functions! So why should we learn about `.forEach`?
+
+Here's the biggest advantage: forEach is part of a family of array iteration methods. Taken as a whole, this family allows us to do all sorts of amazing things, like finding a particular item in the array, filtering a list, and much more.
+
+All of the methods in this family follow the same basic structure. For example, they all support the optional index parameter we just looked at!
+
+Let's look at another member of this family: the filter method.
 
 #### Array.prototype.filter()
 
@@ -699,11 +1007,7 @@ function filterInventors(inventor) {
 console.table(fifteen);
 ```
 
-#### Arrow Functions
-
-[Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are commonly used as a shorter syntax for anonymous functions although they have additional functionality
-
-Refactor using an arrow function with implicit return:
+Refactor using an and `&&` operator together with an arrow function with implicit return:
 
 ```js
 const fifteen = inventors.filter(
@@ -714,9 +1018,77 @@ console.table(fifteen);
 
 Note the lack of a `return` statement. While they can be used within arrow functions, they are often unnecessary as the `return` is implicit.
 
-#### Array.prototype.map() and join()
+Another filter example:
 
-The map method transforms a collection by applying a function to all of its elements and building a new collection from the returned values.
+```js
+const students = [
+  { name: "Aisha", grade: 89 },
+  { name: "Bruno", grade: 55 },
+  { name: "Carlos", grade: 68 },
+  { name: "Dacian", grade: 71 },
+  { name: "Esther", grade: 40 },
+];
+
+const studentsWhoPassed = students.filter((student) => {
+  return student.grade >= 60;
+});
+
+console.log(studentsWhoPassed);
+/*
+  [
+    { name: 'Aisha', grade: 89 },
+    { name: 'Carlos', grade: 68 },
+    { name: 'Dacian', grade: 71 },
+  ]
+*/
+```
+
+In many ways, filter is very similar to forEach. It takes a callback function, and that callback function will be called once per item in the array.
+
+Unlike forEach, however, filter produces a value. Specifically, it produces a new array which contains a subset of items from the original array.
+
+Typically, our callback function should return a boolean value, either true or false. The filter method calls this function once for every item in the array. If the callback returns true, this item is included in the new array. Otherwise, it's excluded.
+
+Note: The filter method doesn't modify or _mutate_ the original array. This is not true for all of the array methods and it is an important distinction.
+
+```js
+const nums = [5, 12, 15, 31, 40];
+
+const evenNums = nums.filter((num) => {
+  return num % 2 === 0;
+});
+
+console.log(nums); // Hasn't changed: [5, 12, 15, 31, 40]
+console.log(evenNums); // [12, 40]
+nums.pop();
+console.log(nums); // Changed: [5, 12, 15, 31]
+```
+
+#### Array.prototype.map()
+
+`map` is quite a lot like forEach. We give it a callback function, and it iterates over the array, calling the function once for each item in the array.
+
+Here's the big difference, though: map produces a brand new array, full of transformed values.
+
+The forEach function will always return undefined:
+
+```js
+onst nums = [1, 2, 3];
+
+const result = nums.forEach(num => num + 1);
+
+console.log(result); // undefined
+```
+
+In contrast, map will "collect" all the values we return from our callback, and put them into a new array:
+
+```js
+const nums = [1, 2, 3];
+
+const result = nums.map((num) => num + 1);
+
+console.log(result); // [2, 3, 4]
+```
 
 Provide an array of the inventors first and last names:
 
@@ -738,6 +1110,12 @@ const fullNames = inventors
   .join(" / ");
 
 console.log("Full names: ", fullNames);
+```
+
+Array.map is frequently used to generate html:
+
+```js
+.map((inventor) => `<li>${inventor.first}, ${inventor.last}</li>`)
 ```
 
 #### Array.prototype.sort()
@@ -814,7 +1192,11 @@ Note the use of nested template strings here.
 
 These methods, `.map`, `.filter` (and others we have yet to look at such as `.reduce`) are _the prefered_ means of working with data. They are **declarative** as opposed to **imperative** and are important methods in the functional programmer's toolkit.
 
-The close button which is an integral part of the responsive navigation has been lost due to the use of `nav.innerHTML = markup;`. There are a number of simple ways to resolve this. For today we'll just cut the code from `index.html` and paste the code into our JavaScript:
+Examine the responsive navigation on small screens using the device toolbar. The close button has been lost due to the use of `nav.innerHTML = markup;`. We essential blew out all the html and replaced it with our own.
+
+There are a number of ways to resolve this.
+
+One method might be to just cut the code from `index.html` and paste it into our JavaScript:
 
 ```js
 const markup = `
@@ -835,54 +1217,66 @@ const markup = `
 `;
 ```
 
-## EXERCISE - Sticky Menu
+Another might be to add an element to the DOM:
 
-Problem: the menu scrolls off the screen and we want to to be available at all times.
-
-Solution: we will anchor the menu to the top of the screen once the user has scrolled to the point where the menu would normally be out of sight using the css position property.
-
-Edit the CSS in `nav.css` (inside the media query).
-
-```css
-.main-menu {
-  display: block;
-  position: static;
-  background: #007eb6;
-  width: 100%;
-  position: sticky;
-  top: 0px;
-}
+```html
+<nav id="main-menu" class="main-menu" aria-label="Main menu">
+  <a
+    href="#main-menu-toggle"
+    id="main-menu-close"
+    class="menu-close"
+    aria-label="Close main menu"
+  >
+    <span class="sr-only">Close main menu</span>
+    <span class="fa fa-close" aria-hidden="true"></span>
+  </a>
+  <!-- HERE -->
+  <span id="main-nav"></span>
+</nav>
 ```
 
-Note: this would be considered a progressive enhancement as it does not work in all the browsers. Support might be extended by following the instructions on [Can I Use](https://caniuse.com/#feat=css-sticky).
-
-<!-- ## EXERCISE - Adding an SVG Image -->
-
-<!-- Select the first list item on the nav, add a class and set the innerHTML so that we get a link which will return us to the top of the page:
+And add the markup to it:
 
 ```js
-// logo
-const logo = nav.querySelector(".main-menu ul li");
+nav.querySelector("#main-nav").innerHTML = markup;
+```
+
+## EXERCISE - Adding an SVG Image
+
+Use the optional index in our map function to create a class name for the li's:
+
+```js
+${navItemsObject
+  .map(
+    (item, index) =>
+      `<li class="navitem-${index}"><a href="${item.link}">${item.label}</a></li>`
+  )
+  .join("")}
+```
+
+Select the first list item on the nav, add a class and set the innerHTML so that we get a link which will return us to the top of the page:
+
+```js
+const logo = document.querySelector(".navitem-0");
 logo.classList.add("logo");
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 ```
 
-Examine the SVG file
+Examine the SVG file in VS Code. Note the `fill` property for svg.
 
-An interesting application of SVG:
-
-- [Responsive logos](http://responsivelogos.co.uk)
+<!-- An interesting application of SVG:
+- [Responsive logos](http://responsivelogos.co.uk) -->
 
 Format the logo for both mobile and wide screen:
 
 ```css
 li.logo img {
   padding-top: 0.25rem;
-  width: 2.5rem;
+  width: 2.25rem;
 }
 ```
 
-Note the use of max-width above. We are using this because transitions do not animate width. -->
+<!-- Note the use of max-width above. We are using this because transitions do not animate width. -->
 
 ## EXERCISE - AJAX and APIs
 
@@ -890,16 +1284,13 @@ _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use o
 
 An API (Application Programming Interface) is a set of definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop a computer program by providing all the building blocks, which are then put together by the programmer.
 
-See the documentation for one of our sample APIs:
-
-- [JSON Placeholder](https://jsonplaceholder.typicode.com/posts), [documentation](https://jsonplaceholder.typicode.com/)
-- [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0), [documentation](https://developer.nytimes.com/)
-- [Pokemon API](https://pokeapi.co/api/v2/ability/?limit=5&offset=0), [documentation](https://pokeapi.co)
-- and our navItemsObject:
-
 ## EXERCISE - Adding Content
 
 We will use the [NY Times developer](https://developer.nytimes.com) API for getting a data using my API key.
+
+- [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0), [documentation](https://developer.nytimes.com/)
+
+Note there is a [hard limit](https://developer.nytimes.com/faq#a11) of 10,000 requests per day or 10 requests per minute. We will try to work around this by storing the data locally in the browser using Local Storage. Instead of requesting the data from the NY Times we will request it from our own browsers.
 
 The specific API endpoint for this is their [top stories endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview). It lets us request the top stories from a specific section of their publication.
 
@@ -913,17 +1304,17 @@ Store the API key, a template string with the complete URL, and the element we w
 
 ```js
 const root = document.querySelector(".site-wrap");
-const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
+const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0"; // note this is my API key
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 ```
 
 ### The fetch() API
 
-Web browsers offer a number of [built-in tools](https://developer.mozilla.org/en-US/docs/Web/API).
+Web browsers offer a large number of [built-in web APIs](https://developer.mozilla.org/en-US/docs/Web/API).
 
 We'll use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to get data from the New York Times.
 
-`fetch()` returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises).
+`fetch()` doesn't return the data immediately, rather it returns a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises) that the data will eventually become available.
 
 ```js
 fetch(nytUrl).then(function (response) {
@@ -960,21 +1351,15 @@ Instead of logging it we will pass it to a `renderStories` function:
 ```js
 fetch(nytUrl)
   .then((response) => response.json())
-  // .then((myJson) => renderStories(myJson));
-  .then((myJson) => localStorage.setItem("stories", JSON.stringify(myJson));
-```
-
-In `renderStories` we take the passed data (our JSON) and run a `forEach` on every item that creates a `div` with the desired content:
-
-```js
-// function renderStories(data) {
-//   console.log(data);
-// }
+  // storing the data in localstorage to avoid hitting the API limit
+  .then((myJson) => localStorage.setItem("stories", JSON.stringify(myJson)))
+  .then(renderStories);
 ```
 
 Examine the data and you'll see that the information we are interested in is located in `results`.
 
 We will use a forEach loop to log each of the results:
+In `renderStories` we take the data from local storage, convert it to json and run a `forEach` on every item that logs it to the console:
 
 ```js
 function renderStories() {
@@ -983,23 +1368,19 @@ function renderStories() {
     console.log(story);
   });
 }
-// function renderStories(data) {
-//   data.results.forEach(function (story) {
-//     console.log(story);
-//   });
-// }
 ```
 
 Let's use the techniques we covered earlier to create a DOM element for each of the stories:
 
 ```js
-function renderStories(data) {
+function renderStories() {
+  let data = JSON.parse(localStorage.getItem("stories"));
   data.results.forEach(function (story) {
     var storyEl = document.createElement("div");
     storyEl.className = "entry";
     storyEl.innerHTML = `
-    <h3>${story.title}</h3>
-    `;
+      <h3>${story.title}</h3>
+      `;
     console.log(storyEl);
     root.prepend(storyEl);
   });
@@ -1009,7 +1390,8 @@ function renderStories(data) {
 Expand it to include images and abstracts:
 
 ```js
-function renderStories(data) {
+function renderStories() {
+  let data = JSON.parse(localStorage.getItem("stories"));
   data.results.forEach((story) => {
     var storyEl = document.createElement("div");
     storyEl.className = "entry";
@@ -1028,12 +1410,7 @@ function renderStories(data) {
 Note: not all NYTimes stories include images and our script could error if `story.multimedia[0]` was undefined. For this we will use a [Conditional (ternary) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) for the image element:
 
 ```js
-<img
-  src="${
-      story.multimedia.length > 0 ? story.multimedia[0].url : 'img/no-image.png'
-    }"
-  alt="${story.title}"
-/>
+<img src="${story.multimedia ? story.multimedia[0].url : ""}" alt="${story.title}" />
 ```
 
 Ternaries are popular in cases like this - in fact they are essential. You cannot write an `if(){} else(){}` statement inside a string literal. Template literals only support expressions.
@@ -1043,7 +1420,7 @@ Add some new css to support the new elements:
 ```css
 .entry {
   display: grid;
-  grid-template-columns: 1fr 7fr;
+  grid-template-columns: 2fr 6fr;
   grid-column-gap: 1rem;
   margin-bottom: 1rem;
 }
@@ -1061,16 +1438,19 @@ Refactor using arrow functions and `.map()`:
 ```js
 fetch(nytUrl)
   .then((response) => response.json())
-  .then((myJson) => renderStories(myJson));
+  .then((myJson) => localStorage.setItem("stories", JSON.stringify(myJson)))
+  .then(renderStories);
 
-function renderStories(data) {
+function renderStories() {
+  let data = JSON.parse(localStorage.getItem("stories"));
   data.results.map((story) => {
     var storyEl = document.createElement("div");
     storyEl.className = "entry";
     storyEl.innerHTML = `
-    <img src="${
-      story.multimedia.length > 0 ? story.multimedia[2].url : "img/no-image.png"
-    }" alt="${story.title}" />
+    <img src="${story.multimedia ? story.multimedia[0].url : ""}" alt="${
+      story.title
+    }" />
+
       <div>
         <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
         <p>${story.abstract}</p>
@@ -1081,299 +1461,150 @@ function renderStories(data) {
 }
 ```
 
+## END
+
 ## EXERCISE - News Section Headers
 
-Let's add additional Sections to our page.
+Our goal here is to make the nav bar clicks load new content from the New York Times API, store the data in local storage and render it to the page.
 
 In `navItems.js`, replace `navItemsObject` with
 
 ```js
-export const navItemsObject = [
+const navItemsObject = [
   {
-    label: "arts",
-    link: "#arts",
+    label: "Arts",
+    link: "arts",
   },
   {
-    label: "books",
-    link: "#books",
+    label: "Books",
+    link: "books",
   },
   {
-    label: "fashion",
-    link: "#fashion",
+    label: "Fashion",
+    link: "fashion",
   },
   {
-    label: "food",
-    link: "#food",
+    label: "Food",
+    link: "food",
   },
   {
-    label: "movies",
-    link: "#movies",
+    label: "Movies",
+    link: "movies",
   },
   {
-    label: "travel",
-    link: "#travel",
+    label: "Travel",
+    link: "travel",
   },
 ];
 ```
 
-<!-- Examine the rendered page. Note: Arts does not appear in the nav because we are using the first li for our logo. Edit the logo related scripts: -->
+Examine the rendered page. Note: Arts does not appear in the nav because we are using the first li for our logo. Edit the logo related scripts:
 
-<!-- ```js
-// logo
+```js
+// const logo = document.querySelector(".navitem-0");
+// logo.classList.add("logo");
+// logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
+
 const logo = document.createElement("li");
 const navList = nav.querySelector("nav ul");
 logo.classList.add("logo");
 logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
 navList.prepend(logo);
-``` -->
+```
 
-Add categories and limit variables to `myscripts.js`:
+Add categories and limit variables to `index.js`:
 
 ```js
-const limit = 6;
 const categories = navItemsObject.map((item) => item.label);
+console.log(categories);
 ```
-
-Since our categories are available in `navItemsObject`, we can make the categories variable a product of `navItemsObject`:
-
-Create a new `getArticlesByCategory` function and call it with the categories array:
 
 ```js
-function getArticlesByCategory(cat) {
-  cat.forEach(function (category) {
-    fetchArticles(category);
-  });
-}
-
-getArticlesByCategory(categories);
+const navItems = document.querySelectorAll("li[class^='navitem-']");
+console.log(navItems);
 ```
 
-This function's sole purpose is to call a new function `fetchArticles` with each of the items in our categories array.
+Add event listeners to each of the nav items:
+
+```js
+navItems.forEach((item, index) => {
+  item.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("categories[index]:::", categories[index]);
+    fetchArticles(categories[index]);
+  });
+});
+```
+
+This function calls a new function `fetchArticles` when we click on one of the navigation items.
 
 Refactor our `fetch` call to a `fetchArticles` function that generates a url based on the section:
 
 ```js
 function fetchArticles(section) {
-  fetch(
-    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
-  )
-    .then((response) => response.json())
-    .then((myJson) => renderStories(myJson));
-}
-```
-
-Examine the results in the browser.
-
-We need to add headers.
-
-Refactor the `renderStories()` function.
-
-Begin by adding the title to a new div:
-
-```js
-function renderStories(data) {
-  var sectionHead = document.createElement("div");
-  sectionHead.id = data.section.toLowerCase();
-  sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
-  root.prepend(sectionHead);
-}
-```
-
-Prior to our `forEach` we will limit the number of stories with `stories = data.results.slice(0, limit);` and then append the sories to the sectionHead with `sectionHead.append(storyEl);`:
-
-```js
-function renderStories(data) {
-  var sectionHead = document.createElement("div");
-  sectionHead.id = data.section.toLowerCase();
-  sectionHead.innerHTML = `<h3  class="section-head">${data.section}</h3>`;
-  root.prepend(sectionHead);
-
-  const stories = data.results.slice(0, limit); // NEW
-
-  stories.map((story) => {
-    let storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
-    <img src="${
-      story.multimedia.length > 0 ? story.multimedia[0].url : "img/no-image.png"
-    }" />
-    <div>
-      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
-      <p>${story.abstract}</p>
-    </div>
-    `;
-    sectionHead.append(storyEl); // NEW
-  });
-}
-```
-
-Note that we are adding an id (`sectionHead.id = data.section;`) to the section heads **and** setting it to lower case so that our page fragment navigation will work.
-
-Log the stories variable to the console:
-
-```js
-stories = data.results.slice(0, limit);
-console.log(" stories ", stories);
-```
-
-Note that our fetch runs 6 times and only returns the first 6 stories in each category.
-
----
-
-### Array.slice(), Array.filter
-
-Note the use of the Array method [`slice()`](<(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)>) and our limit variable to constrain the number of articles displayed.
-
-The `slice()` method returns a _shallow_ copy of a portion of an array into a new array.
-
-<!--
-
-Demo: Following up on our discussion of filtering arrays, here is a script that could be employed to return subsections within a section:
-
-```js
-// stories = data.results.slice(0, limit);
-const stories = data.results.filter(
-  (story) => story.subsection === "Book Review"
-);
-``` -->
-
----
-
-Style the new category headers:
-
-```css
-.section-head {
-  font-family: Lobster;
-  font-weight: normal;
-  color: #007eb6;
-  font-size: 2.5rem;
-  text-transform: capitalize;
-  padding-bottom: 0.25rem;
-  padding-top: 4rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #007eb6;
-}
-```
-
-<!-- ## Final Script
-
-```js
-// variables
-var root = document.querySelector(".site-wrap");
-const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0";
-const limit = 6;
-const categories = navItemsObject.map((item) => item.label);
-const nav = document.querySelector(".main-menu");
-
-// navigation
-function renderNav() {
-  const markup = `
-    <a
-      href="#main-menu-toggle"
-      id="main-menu-close"
-      class="menu-close"
-      aria-label="Close main menu"
-    >
-      <span class="sr-only">Close main menu</span>
-      <span class="fa fa-close" aria-hidden="true"></span>
-    </a>
-
-  <ul>
-    ${navItemsObject
-      .map((item) => `<li><a href="${item.link}">${item.label}</a></li>`)
-      .join("")}
-  </ul>
-  `;
-  nav.innerHTML = markup;
-
-  const logo = document.createElement("li");
-  const navList = nav.querySelector("nav ul");
-  logo.classList.add("logo");
-  logo.innerHTML = '<a href="#"><img src="img/logo.svg" /></a>';
-  navList.prepend(logo);
-}
-
-// articles
-function getArticlesByCategory(cat) {
-  cat.forEach(function (category, index) {
-    fetchArticles(category, index);
-  });
-}
-
-function fetchArticles(section) {
-  fetch(
-    `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
-  )
-    .then((response) => response.json())
-    .then((myJson) => renderStories(myJson));
-}
-
-function renderStories(data) {
-  var sectionHead = document.createElement("div");
-  sectionHead.id = data.section;
-  sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
-  root.prepend(sectionHead);
-
-  stories = data.results.slice(0, limit);
-
-  stories.forEach((story) => {
-    storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
-    <img src="${
-      story.multimedia.length > 0 ? story.multimedia[0].url : "img/no-image.png"
-    }" />
-    <div>
-      <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
-      <p>${story.abstract}</p>
-    </div>
-    `;
-    sectionHead.append(storyEl);
-  });
-}
-
-getArticlesByCategory(categories);
-renderNav();
-``` -->
-
-<!-- ## Smooth Scrolling
-
-We need to add an ID to the section head divs as well as a classname to support a CSS change.
-
-```js
-sectionHead.classList.add("scroll-margin");
-```
-
-Here:
-
-```js
-function renderStories(data) {
-  var sectionHead = document.createElement("div");
-  sectionHead.id = data.section.toLowerCase();
-  // here
-  sectionHead.classList.add("scroll-margin");
-  sectionHead.innerHTML = `<h3 class="section-head">${data.section}</h3>`;
-```
-
-```css
-@media (min-width: 800px) {
-  .scroll-margin {
-    scroll-margin-top: 4rem;
+  console.log("section::", section);
+  if (!localStorage.getItem(section)) {
+    console.log("ran");
+    fetch(
+      `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
+    )
+      .then((response) => response.json())
+      .then((myJson) => localStorage.setItem(section, JSON.stringify(myJson)))
+      .then(renderStories(section))
+      .catch((error) => {
+        console.warn(error);
+      });
+  } else {
+    console.log("didn't run");
+    renderStories(section);
   }
 }
 ```
 
-Add scroll-behavior:
+Refactor our `renderStories` function to generate html based on the section:
 
-```css
-html {
-  box-sizing: border-box;
-  background: #eee;
-  scroll-behavior: smooth;
+```js
+function renderStories(section) {
+  console.log("section", section);
+  let data = JSON.parse(localStorage.getItem(section));
+  data.results.map((story) => {
+    var storyEl = document.createElement("div");
+    storyEl.className = "entry";
+    storyEl.innerHTML = `
+    <img src="${story.multimedia ? story.multimedia[0].url : ""}" alt="${
+      story.title
+    }" />
+
+      <div>
+        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <p>${story.abstract}</p>
+      </div>
+      `;
+    root.prepend(storyEl);
+  });
 }
-``` -->
+```
 
-## Instructor Notes - students ignore eveything after this point
+Set up the arts section to be displayed by default:
+
+```js
+fetchArticles("arts");
+```
+
+Set an active class name:
+
+```js
+function setActiveTab(section) {
+  const activeTab = document.querySelector("a.active");
+  if (activeTab) {
+    activeTab.classList.remove("active");
+  }
+  const tab = document.querySelector(`li a[href="${section}"]`);
+  tab.classList.add("active");
+}
+```
+
+## Instructor Notes - students may ignore eveything after this point
 
 ### Immediately Invoked Function Expression
 
@@ -1412,49 +1643,18 @@ function renderStories(data) {
 }
 ```
 
-At the bottom of scripts:
+Style the new category headers:
 
-```js
-let saved = localStorage.getItem("articles");
-if (saved) {
-  root.innerHTML = saved;
-} else {
-  getArticlesByCategory(categories);
+```css
+.section-head {
+  font-family: Lobster;
+  font-weight: normal;
+  color: #007eb6;
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  padding-bottom: 0.25rem;
+  padding-top: 4rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #007eb6;
 }
-```
-
-In Chrome's inspector select Application and browser to Storage > Local Storage.
-
-Time permitting:
-
-```js
-localStorage.setItem(
-  "stories",
-  JSON.stringify({
-    timestamp: new Date().getTime(),
-    data: stories,
-  })
-);
-```
-
-Warning: not production code!
-
-```js
-let saved = localStorage.getItem("stories");
-let savedJson = JSON.parse(saved);
-console.log(savedJson);
-console.log(savedJson.timestamp);
-if (saved) {
-  var difference = new Date().getTime() - savedJson.timestamp;
-  console.log("difference ", difference);
-  if (difference > 1000 * 5) {
-    getArticlesByCategory(categories);
-    console.log("true");
-  } else {
-    getArticlesByCategory(categories);
-    console.log("false");
-  }
-}
-
-// getArticlesByCategory(categories);
 ```

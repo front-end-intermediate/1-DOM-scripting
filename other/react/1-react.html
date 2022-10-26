@@ -15,17 +15,22 @@
     <script type="text/javascript">
       const rootElement = document.getElementById("root");
 
-      /*/ vanilla js /*/
-      const element = document.createElement("div");
-      element.textContent = "Hello World";
+      /* vanilla js */
+      const element = document.createElement("a");
+      element.textContent = "Wikipedia";
       element.className = "container";
+      element.href = "https://wikipedia.org/";
       rootElement.appendChild(element);
 
-      /*/ react js /*/
-      // const element = React.createElement("div", {
-      //   className: "container",
-      //   children: "Hello World",
-      // });
+      /* React */
+      // const element = React.createElement(
+      //   "a",
+      //   {
+      //     className: "container",
+      //     href: "https://wikipedia.org/",
+      //   },
+      //   "Wikipedia"
+      // );
 
       console.log(element);
 

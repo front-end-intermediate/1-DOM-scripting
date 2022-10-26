@@ -16,12 +16,29 @@
     <script type="text/babel">
       const rootElement = document.getElementById("root");
 
-      const content = "Hello World";
-      const myClassName = "container";
+      const Link = (props) => {
+        return (
+          <li>
+            <a href={props.href}>{props.linkText}</a>
+          </li>
+        );
+      };
 
-      const elem = <div className={myClassName}>{content}</div>;
+      const Links = () => {
+        return (
+          <ul>
+            <Link linkText="Wikipedia" href="https://wikipedia.org/" />
+            <Link linkText="Google" href="https://google.com/" />
+            <Link linkText="Apple" href="https://apple.com" />
+          </ul>
+        );
+      };
 
-      ReactDOM.render(elem, rootElement);
+      ReactDOM.render(
+        // <Link linkText="Wikipedia" href="https://wikipedia.org/" />,
+        <Links />,
+        rootElement
+      );
     </script>
   </body>
 </html>

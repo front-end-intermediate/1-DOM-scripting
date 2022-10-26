@@ -109,12 +109,12 @@ The backdrop is the link on line 42, with no content and hidden. Here we display
     display: none;
   }
 
-  .main-menu {
+  /* .main-menu {
     display: block;
     position: static;
     background: #007eb6;
     width: 100%;
-  }
+  } */
 
   .main-menu ul {
     display: flex;
@@ -134,5 +134,14 @@ The backdrop is the link on line 42, with no content and hidden. Here we display
     text-decoration: none;
     display: inline-block;
     color: white;
+  }
+
+  .main-menu {
+    display: block;
+    position: static;
+    background: #007eb6;
+    width: 100%;
+    position: sticky;
+    top: 0px;
   }
 }
