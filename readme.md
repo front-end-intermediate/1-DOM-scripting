@@ -29,7 +29,7 @@
   - [EXERCISE - AJAX and APIs](#exercise---ajax-and-apis)
   - [EXERCISE - Adding Content](#exercise---adding-content)
     - [The fetch() API](#the-fetch-api)
-  - [SUPPLEMENTAL EXERCISE - News Section Headers](#supplemental-exercise---news-section-headers)
+  - [EXERCISE - News Section Headers](#exercise---news-section-headers)
   - [Instructor Notes - students may ignore eveything after this point](#instructor-notes---students-may-ignore-eveything-after-this-point)
     - [Immediately Invoked Function Expression](#immediately-invoked-function-expression)
     - [Local Storage](#local-storage)
@@ -1296,7 +1296,7 @@ function renderStories() {
     var storyEl = document.createElement("div");
     storyEl.className = "entry";
     storyEl.innerHTML = `
-    <img src="${story.multimedia[7].url}" alt="${story.title}" />
+    <img src="${story.multimedia[0].url}" alt="${story.title}" />
       <div>
         <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
         <p>${story.abstract}</p>
@@ -1326,10 +1326,10 @@ Add some new css to support the new elements:
 }
 
 .entry a {
+  text-decoration: none;
   color: var(--textcolor);
   font-family: "Lobster", cursive;
   font-size: 1.5rem;
-  text-decoration: none;
 }
 ```
 
@@ -1363,7 +1363,7 @@ function renderStories() {
 }
 ```
 
-## SUPPLEMENTAL EXERCISE - News Section Headers
+## EXERCISE - News Section Headers
 
 Our goal here is to make the nav bar clicks load new content from the New York Times API, store the data in local storage and render it to the page.
 
@@ -1417,7 +1417,7 @@ navList.prepend(logo);
 Add categories and navItems variables to `index.js`:
 
 ```js
-const categories = navItemsObject.map((item) => item.label);
+const categories = navItemsObject.map((item) => item.link);
 console.log(categories);
 ```
 
@@ -1445,7 +1445,7 @@ Refactor our `fetch` call to a `fetchArticles` function that generates a url bas
 function fetchArticles(section) {
   section = section.substring(1);
   if (!localStorage.getItem(section)) {
-    console.log("ran");
+    console.log("section not in local storage, fetching");
     fetch(
       `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
     )
@@ -1456,7 +1456,7 @@ function fetchArticles(section) {
         console.warn(error);
       });
   } else {
-    console.log("didn't ran");
+    console.log("section in local storage");
     renderStories(section);
   }
 }
@@ -1465,32 +1465,34 @@ function fetchArticles(section) {
 Refactor our `renderStories` function to generate html based on the section:
 
 ```js
-function renderStories(section) {
-  console.log("section", section);
-  let data = JSON.parse(localStorage.getItem(section));
-  data.results.map((story) => {
-    var storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
+async function renderStories(section) {
+  let data = await JSON.parse(localStorage.getItem(section));
+  if (data) {
+    data.results.map((story) => {
+      var storyEl = document.createElement("div");
+      storyEl.className = "entry";
+      storyEl.innerHTML = `
       <img src="${story.multimedia ? story.multimedia[0].url : ""}" alt="${
-      story.title
-    }" />
-        <div>
-          <h3><a target="_blank" href="${story.short_url}">${
-      story.title
-    }</a></h3>
-          <p>${story.abstract}</p>
-        </div>
-        `;
-    root.prepend(storyEl);
-  });
+        story.title
+      }" />
+
+      <div>
+        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <p>${story.abstract}</p>
+      </div>
+      `;
+      root.prepend(storyEl);
+    });
+  } else {
+    console.log("data not ready yet");
+  }
 }
 ```
 
 Set up the arts section to be displayed by default:
 
 ```js
-fetchArticles("#arts");
+fetchArticles("arts");
 ```
 
 Set an active class name:
@@ -1506,27 +1508,12 @@ function setActiveTab(section) {
 }
 ```
 
-Call `setActiveTab` from the `fetchArticles` function:
+Call the function
 
 ```js
-function fetchArticles(section) {
-  setActiveTab(section);
-  section = section.substring(1);
-  if (!localStorage.getItem(section)) {
-    console.log("ran");
-    fetch(
-      `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
-    )
-      .then((response) => response.json())
-      .then((myJson) => localStorage.setItem(section, JSON.stringify(myJson)))
-      .then(renderStories(section))
-      .catch((error) => {
-        console.warn(error);
-      });
-  } else {
-    console.log("didn't ran");
-    renderStories(section);
-  }
+async function renderStories(section) {
+  setActiveTab(`#${section}`);
+  // ...
 }
 ```
 
