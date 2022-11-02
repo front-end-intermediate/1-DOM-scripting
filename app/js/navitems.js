@@ -11,38 +11,65 @@ const navItemsArray = [
 
 const navItemsObject = [
   {
-    label: "LOGO",
-    link: "#",
+    label: "Arts",
+    link: "#arts",
   },
   {
-    label: "Watchlist",
-    link: "#watchlist",
+    label: "Books",
+    link: "#books",
   },
   {
-    label: "Research",
-    link: "#research",
+    label: "Fashion",
+    link: "#fashion",
   },
   {
-    label: "Markets",
-    link: "#markets",
+    label: "Food",
+    link: "#food",
   },
   {
-    label: "Workbook",
-    link: "#workbook",
+    label: "Movies",
+    link: "#movies",
   },
   {
-    label: "Connect",
-    link: "#connect",
-  },
-  {
-    label: "Desktop",
-    link: "#desktop",
-  },
-  {
-    label: "FAQ",
-    link: "#faq",
+    label: "Travel",
+    link: "#travel",
   },
 ];
+
+// const navItemsObject = [
+//   {
+//     label: "LOGO",
+//     link: "#",
+//   },
+//   {
+//     label: "Watchlist",
+//     link: "#watchlist",
+//   },
+//   {
+//     label: "Research",
+//     link: "#research",
+//   },
+//   {
+//     label: "Markets",
+//     link: "#markets",
+//   },
+//   {
+//     label: "Workbook",
+//     link: "#workbook",
+//   },
+//   {
+//     label: "Connect",
+//     link: "#connect",
+//   },
+//   {
+//     label: "Desktop",
+//     link: "#desktop",
+//   },
+//   {
+//     label: "FAQ",
+//     link: "#faq",
+//   },
+// ];
 
 const inventors = [
   { first: "Albert", last: "Einstein", year: 1879, passed: 1955 },
