@@ -106,7 +106,7 @@ A listing of applications and technologies you will be introduced to in the clas
 
 ## Today's Exercise
 
-In today's class we will implement [this single page web site](https://intermediate-lesson-one.netlify.app/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
+In today's class we will implement [this single page web site](https://boisterous-begonia-022b07.netlify.app/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
 
 In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for working with React and other JavaScript frameworks.
 
