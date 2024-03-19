@@ -1,35 +1,66 @@
 import { makeNav } from "./modules/nav.js";
-// import { fetch } from "./modules/fetch-stories.js";
+import navItemsObject from "./modules/navitems.js";
 
 const root = document.querySelector(".site-wrap");
-const nytapi = "KgGi6DjX1FRV8AlFewvDqQ8IYFGzAcHM"; // note this is my API key
-const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
+const nytapi = "KgGi6DjX1FRV8AlFewvDqQ8IYFGzAcHM"; // note this should be your API key
 
-fetch(nytUrl)
-  .then((response) => response.json())
-  .then((myJson) => localStorage.setItem("stories", JSON.stringify(myJson)))
-  .then(renderStories);
+makeNav();
 
-function renderStories() {
-  let data = JSON.parse(localStorage.getItem("stories"));
-  data.results.forEach((story) => {
-    let storyEl = document.createElement("div");
-    storyEl.className = "entry";
-    storyEl.innerHTML = `
+const categories = navItemsObject.map((item) => item.link);
+console.log("categories: ", categories);
 
-        <img src="${story.multimedia ? story.multimedia[0].url : ""}" 
-          alt="${story.title}" />
+const navItems = document.querySelectorAll("nav li a");
+console.log("navItems: ", navItems);
 
-            <div>
-              <h3><a target="_blank" href="${story.short_url}">${
-      story.title
-    }</a></h3>
-          <p>${story.abstract}</p>
-        </div>
-    `;
-    root.prepend(storyEl);
+for (let i = 0; i < navItems.length; i++) {
+  navItems[i].addEventListener("click", () => {
+    fetchArticles(categories[i]);
   });
 }
 
-makeNav();
-// fetch();
+function fetchArticles(section) {
+  console.log("1", section);
+  section = section.substring(1);
+  console.log("2", section);
+  if (!localStorage.getItem(section)) {
+    console.log("section not in local storage, fetching");
+    fetch(
+      `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
+    )
+      .then((response) => response.json())
+      .then((data) => setLocalStorage(section, data))
+      .catch((error) => {
+        console.warn(error);
+      });
+  } else {
+    console.log("section in local storage");
+    renderStories(section);
+  }
+}
+
+function setLocalStorage(section, myJson) {
+  localStorage.setItem(section, JSON.stringify(myJson));
+  renderStories(section);
+}
+
+function renderStories(section) {
+  let data = JSON.parse(localStorage.getItem(section));
+  if (data) {
+    data.results.map((story) => {
+      var storyEl = document.createElement("div");
+      storyEl.className = "entry";
+      storyEl.innerHTML = `
+      <img src="${story.multimedia ? story.multimedia[0].url : ""}" alt="${
+        story.title
+      }" />
+      <div>
+        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <p>${story.abstract}</p>
+      </div>
+      `;
+      root.prepend(storyEl);
+    });
+  } else {
+    console.log("data not ready yet");
+  }
+}

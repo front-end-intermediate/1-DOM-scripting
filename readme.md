@@ -32,7 +32,7 @@
   - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
   - [Responsive Navigation Bug](#responsive-navigation-bug)
     - [Modular Code](#modular-code)
-  - [AJAX and APIs](#ajax-and-apis)
+  - [APIs: Local Storage and Fetch](#apis-local-storage-and-fetch)
   - [Adding Content](#adding-content)
     - [The fetch() API](#the-fetch-api)
   - [News Navigation](#news-navigation)
@@ -995,11 +995,11 @@ import navItemsObject from "./navitems.js";
 
 We are using the `import` and `export` statements. These are part of the [ES6 module system](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules). Note the difference between `export default` and `export`.
 
-## AJAX and APIs
+## APIs: Local Storage and Fetch
 
-_AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use of the XMLHttpRequest object to communicate with servers. It can send and receive information in various formats, including JSON, XML, HTML, and text files. AJAX’s most appealing characteristic is its “asynchronous” nature, which means it can communicate with the server, exchange data, and update the page without having to refresh the page._ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
+An API - Application Programming Interface - is a set of definitions, communication protocols, and tools for building web sites. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop by providing building blocks for us to use.
 
-An API (Application Programming Interface) is a set of definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop by providing all the building blocks, which are then put together by the programmer.
+We covered the browser APIs [fetch]() and [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) in the previous session. We will review them now.
 
 ## Adding Content
 
@@ -1007,7 +1007,9 @@ We will use the [NY Times developer](https://developer.nytimes.com) API for gett
 
 - [New York Times API](https://api.nytimes.com/svc/topstories/v2/nyregion.json?api-key=uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0), [documentation](https://developer.nytimes.com/)
 
-Note there is a [hard limit](https://developer.nytimes.com/faq#a11) of 10,000 requests per day or 10 requests per minute. We will try to work around this by storing the data locally in the browser using Local Storage. Instead of requesting the data from the NY Times we will request it from our own browsers.
+Note there is a [limit](https://developer.nytimes.com/faq#a11) of 10,000 requests per day or 10 requests per minute. We will  work around this by storing the data locally in the browser's [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). 
+
+Instead of requesting the data from the NY Times we will request it from our own browsers.
 
 The specific API endpoint for this is their [top stories endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview). It lets us request the top stories from a specific section of their publication.
 
@@ -1186,14 +1188,14 @@ function renderStories() {
 }
 ```
 
-Create a module for the fetching operatiosn in `app/js/modules/fetch-stories.js`:
+<!-- Create a module for the fetching operatiosn in `app/js/modules/fetch-stories.js`:
 
 ```js
 const root = document.querySelector(".site-wrap");
 const nytapi = "KgGi6DjX1FRV8AlFewvDqQ8IYFGzAcHM"; // note this should be your API key
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 
-export function fetch() {
+export function fetchArticles() {
   fetch(nytUrl)
     .then((response) => response.json())
     .then((myJson) => localStorage.setItem("stories", JSON.stringify(myJson)))
@@ -1228,17 +1230,19 @@ import { fetch } from "./modules/fetch-stories.js";
 
 makeNav();
 fetch();
-```
+``` -->
 
 ## News Navigation
 
 Currently were are requesting and displaying the travel section of the New York Times. Our goal is to display different sections depending on the navigation item clicked.
 
-Nav bar clicks load new content from the New York Times API, store the data in local storage and render it to the page.
+Nav bar clicks wil load new content from the New York Times API, store the data in local storage and render it to the page.
 
 Add categories and navItems variables to `index.js`:
 
 ```js
+import navItemsObject from "./modules/navitems.js";
+
 const categories = navItemsObject.map((item) => item.link);
 console.log('categories: ', categories);
 ```
@@ -1251,22 +1255,22 @@ console.log('navItems: ', navItems);
 Add event listeners to each of the nav items:
 
 ```js
-navItems.forEach((item, index) => {
-  item.addEventListener("click", (e) => {
-    console.log("categories[index]:::", categories[index]);
-    fetch(categories[index]);
+for (let i = 0; i < navItems.length; i++) {
+  navItems[i].addEventListener("click", () => {
+    fetchArticles(categories[i]);
   });
-});
+}
 ```
 
-**IMPORTANT:** code order is critical here. The event listeners must be added after the nav items are created (via `makeNav()`). Comment out the `fetch()` call:
+**IMPORTANT:** code order is critical here. The event listeners must be added after the nav items are created (via `makeNav()`). 
+
+<!-- Comment out the `fetch()` call: -->
 
 ```js
 import { makeNav } from "./modules/nav.js";
-import { fetch } from "./modules/fetch-stories.js";
+import navItemsObject from "./modules/navitems.js";
 
 makeNav();
-// fetch();
 
 const categories = navItemsObject.map((item) => item.link);
 console.log("categories: ", categories);
@@ -1274,33 +1278,44 @@ console.log("categories: ", categories);
 const navItems = document.querySelectorAll("nav li a");
 console.log("navItems: ", navItems);
 
-navItems.forEach((item, index) => {
-  console.log("item: ", item);
-  item.addEventListener("click", () => {
-    fetch(categories[index]);
+for (let i = 0; i < navItems.length; i++) {
+  navItems[i].addEventListener("click", () => {
+    fetchArticles(categories[i]);
   });
-});
+}
 ```
 
+We will refactor the fetch function to accept a section and use that section in the NYTimes URL:
 
+`https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
 
 ```js
-function fetch(section) {
+const root = document.querySelector(".site-wrap");
+const nytapi = "KgGi6DjX1FRV8AlFewvDqQ8IYFGzAcHM"; // note this should be your API key
+// const nytUrl = `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`;
+```
+
+We also store the data in local storage and only request it if it is not already there.
+
+```js
+function fetchArticles(section) {
+  console.log("before", section);
   section = section.substring(1);
+  console.log("after", section);
   if (!localStorage.getItem(section)) {
     console.log("section not in local storage, fetching");
     fetch(
-      `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
+     nytUrl
     )
       .then((response) => response.json())
       .then((myJson) => localStorage.setItem(section, JSON.stringify(myJson)))
-      .then(renderStories(section))
+      // .then(renderStories(section))
       .catch((error) => {
         console.warn(error);
       });
   } else {
     console.log("section in local storage");
-    renderStories(section);
+    // renderStories(section);
   }
 }
 ```
@@ -1318,7 +1333,6 @@ function renderStories(section) {
       <img src="${story.multimedia ? story.multimedia[0].url : ""}" alt="${
         story.title
       }" />
-
       <div>
         <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
         <p>${story.abstract}</p>
@@ -1329,6 +1343,33 @@ function renderStories(section) {
   } else {
     console.log("data not ready yet");
   }
+}
+```
+
+There is an issue. We click once on the navigation item and the data is loaded but we receive the response "data not ready yet" from the renderStories function.
+
+```js
+function fetchArticles(section) {
+  section = section.substring(1);
+  if (!localStorage.getItem(section)) {
+    console.log("section not in local storage, fetching");
+    fetch(
+      `https://api.nytimes.com/svc/topstories/v2/${section}.json?api-key=${nytapi}`
+    )
+      .then((response) => response.json())
+      .then((data) => setLocalStorage(section, data))
+      .catch((error) => {
+        console.warn(error);
+      });
+  } else {
+    console.log("section in local storage");
+    renderStories(section);
+  }
+}
+
+function setLocalStorage(section, myJson) {
+  localStorage.setItem(section, JSON.stringify(myJson));
+  renderStories(section);
 }
 ```
 
