@@ -120,14 +120,35 @@ Start VSCode, press `cmd + shift + p` and type in the word `shell`. Select `Inst
 
 ### Today's VSCode Extensions
 
-- Live Server in VS Code
-- Prettier and edit the project settings in the `.vscode` directory as per the instructions to enable format on save for JavaScript
+- Live Server
+- Prettier - edit the settings in VS Code to enable format on save 
 
 e.g.:
 
 ```
 "editor.formatOnSave": true,
 "editor.defaultFormatter": "esbenp.prettier-vscode",
+```
+
+Note: you can control your setting for prettier by adding a configuration file called `.prettierrc` at the top level of your project, i.e.:
+
+```js
+{
+  "singleQuote": true,
+  "trailingComma": "all"
+}
+```
+
+A complete list is located [here](https://prettier.io/docs/en/options). Here is a fuller set:
+
+```js
+{
+  "singleQuote": true,
+  "trailingComma": "all",
+  "semi": true,
+  "tabWidth": 4,
+  "arrowParens": "avoid"
+}
 ```
 
 ---
@@ -954,7 +975,7 @@ Add `type="module"` to the script tag in `index.html`:
 <script type="module" src="js/index.js"></script>
 ```
 
-Create `src/js/modules/nav.js` and move the code from `index.js` to it in an exported function:
+Create `app/js/modules/nav.js` and move the code from `index.js` to it in an exported function:
 
 ```js
 export function makeNav() {
@@ -985,7 +1006,9 @@ We should export and import the `navItemsObject` as well.
 
 Remove `<script src="js/modules/navitems.js"></script>` from index.html
 
-In navitems.js at the bottom: `export default navItemsObject;`
+In navitems.js at the bottom add: 
+
+`export default navItemsObject;`
 
 In `modules/nav.js` at the top:
 
@@ -1030,7 +1053,7 @@ Store the API key, a template string with the complete URL, and the element we w
 
 ```js
 const root = document.querySelector(".site-wrap");
-const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0"; // note this should be your API key
+const nytapi = "KgGi6DjX1FRV8AlFewvDqQ8IYFGzAcHM"; // note this should be your API key
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 ```
 
@@ -1158,7 +1181,6 @@ Add some new css to support the new elements into the break point CSS so it only
 .entry a {
   text-decoration: none;
   color: var(--textcolor);
-  font-family: "Lobster", cursive;
   font-size: 1.5rem;
 }
 ```
@@ -1305,7 +1327,7 @@ function fetchArticles(section) {
   if (!localStorage.getItem(section)) {
     console.log("section not in local storage, fetching");
     fetch(
-     nytUrl
+     "https://api.nytimes.com/svc/topstories/v2/section.json?api-key=nytapi"
     )
       .then((response) => response.json())
       .then((myJson) => localStorage.setItem(section, JSON.stringify(myJson)))
