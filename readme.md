@@ -6,7 +6,7 @@
     - [Github](#github)
     - [Reading](#reading)
   - [Homework](#homework)
-  - [Today's Homework](#todays-homework)
+  - [Homework - week one and two](#homework---week-one-and-two)
   - [Summary of Tools and Technology](#summary-of-tools-and-technology)
   - [Today's Exercise](#todays-exercise)
     - [Today's VSCode Extensions](#todays-vscode-extensions)
@@ -23,16 +23,15 @@
   - [EXERCISE I - Generating Content From an Array](#exercise-i---generating-content-from-an-array)
     - [Template Literals](#template-literals)
     - [Arrow Functions](#arrow-functions)
-    - [Aside: React](#aside-react)
   - [EXERCISE II Content Generation with an Array of Objects](#exercise-ii-content-generation-with-an-array-of-objects)
-    - [Array Methods](#array-methods)
-      - [Array.prototype.filter()](#arrayprototypefilter)
-      - [Array.prototype.map()](#arrayprototypemap)
-      - [Array.prototype.sort()](#arrayprototypesort)
-      - [Array.prototype.reduce()](#arrayprototypereduce)
+  - [Array Methods](#array-methods)
+    - [Array.prototype.filter()](#arrayprototypefilter)
+    - [Array.prototype.map()](#arrayprototypemap)
+    - [Array.prototype.sort()](#arrayprototypesort)
+    - [Array.prototype.reduce()](#arrayprototypereduce)
   - [EXERCISE III - Using Array.prototype.map()](#exercise-iii---using-arrayprototypemap)
   - [Responsive Navigation Bug](#responsive-navigation-bug)
-  - [Modular Code](#modular-code)
+    - [Modular Code](#modular-code)
   - [AJAX and APIs](#ajax-and-apis)
   - [Adding Content](#adding-content)
     - [The fetch() API](#the-fetch-api)
@@ -53,7 +52,7 @@ Your instructor - Daniel Deverell (he, him): Front & Back end developer at JPMor
 
 - 6:30 PM - 9:30 PM Tuesdays and Thursdays
 - Daniel Deverell, [email](mailto:daniel.deverell@nyu.edu) - `daniel.deverell@nyu.edu`
-- [Syllabus](https://docs.google.com/document/d/1y8YLSOsLWszTlEKK5fk1jQNSMdqOUej3c28MJBgPMyQ/edit)
+- [Syllabus](https://docs.google.com/document/d/e/2PACX-1vSvH_TktouJo7Skfyoe2QWGmncYT-H0GhwjL9svjMLFz5OOwFkpY8zz809w-7qZDw/pub)
 - Office hours will be held an an as needed basis. Please email me if you would like to make an appointment.
 
 ### Github
@@ -68,27 +67,30 @@ The edited files as they existed at the end of class can be downloaded from the 
 
 ### Reading
 
-Online reading and videos will be assigned.
+Online reading and videos will be assigned. 
 
 ## Homework
 
 Homework will be handed in via Github and then alerting me via email - daniel.deverell@nyu.edu. I can schedule special sessions for those who require assistance setting up Git and Github.
 
-I will periodically review any messages and ultimately try to use the results to adjust the pace of the class.
-
-## Today's Homework
+## Homework - week one and two
 
 - Install [Git](https://git-scm.com)
 - Install [NodeJS](https://nodejs.org)
 - Create a Github account
 - Create a Netlify account
 
-- Read [Basic DOM Manipulation](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents#active_learning_basic_dom_manipulation) and do the [exercise](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents#active_learning_basic_dom_manipulation)
-- Read [Fetching Data from the Server](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data) and do the [exercise](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data#the_fetch_api.)
+If necessary you should read MDN on [Basic DOM Manipulation](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents#active_learning_basic_dom_manipulation) and do the [exercise](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents#active_learning_basic_dom_manipulation).
 
-[Mozilla Develpers Network](https://developer.mozilla.org/en-US/docs/Web/javascript#for_complete_beginners) offers a series of JavaScript tutorial.
+Read [Fetching Data from the Server](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data) and do the [exercise](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data#the_fetch_api.).
 
-If you have time, I recommend the [Asynchronous JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous) and the [Client Side Storage](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage) tutorials.
+Mozilla Develpers Network offers a series of [JavaScript tutorials](https://developer.mozilla.org/en-US/docs/Web/javascript#for_complete_beginners).
+
+For our current purposes, special attention should be paid to the following JavaScript tutorials on MDN:
+
+- [JavaScript Objects](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects)
+- [Client Side Storage](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage)
+- [Asynchronous JavaScript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous) 
 
 ---
 
@@ -106,9 +108,7 @@ A listing of applications and technologies you will be introduced to in the clas
 
 In today's class we will implement [this single page web site](https://intermediate-lesson-one.netlify.app/) with content almost entirely generated using JavaScript (try selecting `view > developer > View Source` in Chrome).
 
-Note the navigation on small screen and the response to changing the OS between light and dark mode.
-
-In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for React and other JavaScript frameworks.
+In creating this page we will focus on techniques that are critical, not just for working effectively with DOM manipulation, but for working with React and other JavaScript frameworks.
 
 In this class we will be using [Visual Studio Code](https://code.visualstudio.com/) as our editor. We will discuss its features on an as-needed basis.
 
@@ -120,15 +120,14 @@ Start VSCode, press `cmd + shift + p` and type in the word `shell`. Select `Inst
 
 ### Today's VSCode Extensions
 
-Install Live Server in VS Code
+- Live Server in VS Code
+- Prettier and edit the project settings in the `.vscode` directory as per the instructions to enable format on save for JavaScript
 
-Install Prettier and edit the project settings in the `.vscode` directory as per the instructions to enable format on save for JavaScript.
-
-E.g.:
+e.g.:
 
 ```
-"editor.defaultFormatter": "esbenp.prettier-vscode",
 "editor.formatOnSave": true,
+"editor.defaultFormatter": "esbenp.prettier-vscode",
 ```
 
 ---
@@ -162,19 +161,19 @@ code .
 
 Open `index.html`, right or control click on it and choose 'Open with Live Server'.
 
-Examine the page in the dev tools. Note the responsive navigation using the toggle device toolbar.
+Note the responsive navigation on small screen and the response to changing the OS between light and dark mode.
 
-Aside: "All the News That Fits We Print!" is an old joke. "All the News That's Fit to Print," is the actual slogan of The New York Times. 
+Examine the CSS file. Note the use of [viewport sized typography](https://css-tricks.com/viewport-sized-typography/) for the `h1`.
 
 We are using a common [responsive hamburger menu technique](https://medium.com/@heyoka/responsive-pure-css-off-canvas-hamburger-menu-aebc8d11d793).
 
 We are currenly viewing a single page application - there is only one HTML file and we scroll up and down to view the content.
 
+Aside: "All the News That Fits We Print!" is an old joke. "All the News That's Fit to Print," is the actual slogan of The New York Times. 
+
 ## CSS Enhancements
 
 ### Friends Don't Let Friends Browse in Light Mode
-
-Examine the CSS file. Note the use of [viewport sized typography](https://css-tricks.com/viewport-sized-typography/) for the `h1`.
 
 As an enhancement, we will add settings for light and dark modes using [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
 
@@ -311,21 +310,21 @@ Use `document.querySelector()` (without the 'All') to find the first matching el
 In the browser's console:
 
 ```js
-var elem = document.querySelector(".main-menu li a");
+var elem = document.querySelector(".main-menu li");
 ```
 
 Returns the first HTML element or "Node" matched by the selector
 
 ## Looping - for and forEach()
 
-In JavaScript, you can use a `for` to loop through any iterable object - including arrays and node lists.
+We can use a `for` to loop through any iterable object - including arrays and node lists.
 
 ```js
 var elems = document.querySelectorAll(".main-menu a");
 
 for (let i = 0; i < elems.length; i++) {
-  console.log(i); // index
-  console.log(elems[i]); // accessor > value
+  console.log('index: ', i); 
+  console.log(`elems[${i}].href: `, elems[i].href); 
 }
 ```
 
@@ -339,8 +338,8 @@ The first argument in the callback is the current item in the loop. The second (
 var elems = document.querySelectorAll(".main-menu a");
 
 elems.forEach(function (item, index) {
-  console.log(index); // index
-  console.log(item.href); // value
+  console.log('index: ', index);  
+  console.log('item.href: ', item.href);  
 });
 ```
 
@@ -351,7 +350,7 @@ We will begin by replacing the existing nav with items from an array using a `fo
 Note the two script tags at the bottom of `index.html`:
 
 ```html
-<script src="js/navitems.js"></script>
+<script src="js/modules/navitems.js"></script>
 <script src="js/index.js"></script>
 ```
 
@@ -366,9 +365,9 @@ navItemsArray;
 navItemsObject;
 ```
 
-Compare `elems` and `navItemsArray` and note the `prototypes` in the inspector. The first is a NodeList and the latter an Array.
+Compare `elems` ( `var elems = document.querySelectorAll(".main-menu a")`) and `navItemsArray` and note the `prototypes` in the inspector. The first is a NodeList and the latter an Array.
 
-Both have a length property - `navList.length` and `navItemsArray.length` but the methods / functionality are different.
+Both have a length property - `elems.length` and `navItemsArray.length` but the methods / functionality are different.
 
 In `index.js`, select the HTML element with the class `.main-menu` In `index.js`:
 
@@ -376,7 +375,7 @@ In `index.js`, select the HTML element with the class `.main-menu` In `index.js`
 const nav = document.querySelector(".main-menu");
 ```
 
-Select all the links in nav we could write:
+To select all the links in nav we could write:
 
 ```js
 const navList = document.querySelectorAll("#main-menu li a");
@@ -403,7 +402,7 @@ for (let i = 0; i < navList.length; i++) {
 }
 ```
 
-_The text being displayed in the UI is coming from the navItemsArray because they are now capitalized._
+_We know that the text being displayed in the UI is coming from the navItemsArray because they are now capitalized._
 
 So we will dynamically generate the nav from items in the array.
 
@@ -450,7 +449,6 @@ Dynamically create the nav based on the number of items in the array using a for
 
 ```js
 const nav = document.querySelector(".main-menu");
-
 const navList = document.createElement("ul");
 
 for (let i = 0; i < navItemsArray.length; i++) {
@@ -498,31 +496,6 @@ for (let i = 0; i < navItemsArray.length; i++) {
 }
 ```
 
-### Template Literals
-
-[Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and have access to JS expressions inside plaeholders - `${ ... }`.
-
-In earlier versions of JavaScript, if we wanted to dynamically create strings, we needed to use the addition operator (+). Modern JavaScript allows us to embed variables and other expressions right inside strings
-
-Compare old school concatenation by running the following in the console:
-
-```js
-const name = "Yorik";
-const age = 2;
-const oldschool = "My dog " + name + " is " + age * 7 + "years old.";
-const newschool = `My dog ${name} is ${age * 7} years old.`;
-console.log("oldschool::", oldschool);
-console.log("newschool::", newschool);
-```
-
-In order to use string interpolation, we need to use backticks (`). If you're using a standard QWERTY North American keyboard, the key is found in the top-left corner, above “Tab”. It shares a key with the tilde (~) character.
-
-Strings created with backticks are known as “template strings”. For the most part, they function just like any other string, but they have this one super-power: they can embed dynamic segments.
-
-We create a dynamic segment within our string by writing `${}`. Anything placed between the squiggly brackets will be evaluated as a JavaScript expression.
-
----
-
 Use `forEach()` instead of a for loop:
 
 ```js
@@ -543,9 +516,30 @@ navItemsArray.forEach((item) => {
 });
 ```
 
+### Template Literals
+
+Template Literals, aka [Template Strings](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) use back ticks instead of quotes and use plaeholders - `${ ... }` instead of `+` signs for JS expressions.
+
+Compare old school concatenation by running the following in the console:
+
+```js
+const name = "Yorik";
+const age = 2;
+const oldschool = "My dog " + name + " is " + age * 7 + "years old.";
+const newschool = `My dog ${name} is ${age * 7} years old.`;
+console.log("oldschool::", oldschool);
+console.log("newschool::", newschool);
+```
+
+In order to use string interpolation, we use backticks (`). The key is found in the top-left corner, above “Tab”. It shares a key with the tilde (~) character.
+
+We create a dynamic segment within our string by writing `${}`. Anything placed between the squiggly brackets will be evaluated as a JavaScript expression.
+
+---
+
 ### Arrow Functions
 
-[Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are commonly used as a shorter syntax for anonymous functions although they have additional functionality.
+[Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) are commonly used as a shorter syntax for anonymous functions.
 
 Historically, functions in JavaScript have been written using the function keyword:
 
@@ -555,38 +549,11 @@ function exclaim(string) {
 }
 ```
 
-In 2015, the language received an alternative syntax for creating functions: arrow functions. They look like this:
+The equivalent arrow function looks like this:
 
 ```js
 const exclaim = (string) => string + "!";
 ```
-
-Arrow functions are inspired by so-called lambda functions from other functional programming languages. Their main benefit is that they're much shorter and cleaner. Reducing "clutter" may seem like an insignificant benefit, but it can really help improve readability when working with anonymous functions?. For example, this:
-
-```js
-const arr = ["hey", "ho", "let's go"];
-
-function makeString() {
-  return arr
-    .map(function (string) {
-      return string + "!";
-    })
-    .join(" ");
-}
-
-makeString();
-```
-
-Becomes this:
-
-```js
-const arr = ["hey", "ho", "let's go"];
-
-arr.map((string) => string + "!").join(" ");
-// arr.map((string) => `${string} !`).join(" ");
-```
-
-Arrow functions might seem straightforward at first glance, but there are a few “gotchas” to be aware of. It's super common for folks to get tripped up by some of these rules.
 
 There are two types of arrow functions: short and long form.
 
@@ -613,12 +580,11 @@ const add1 = (n) => {
   if (typeof n !== "number") {
     throw new Error("Argument provided must be a number");
   }
-
   return n + 1;
 };
 ```
 
-Note the parentheses in `(n) =>`. The parentheses are optional:
+The parentheses are optional:
 
 <!-- prettier-ignore -->
 ```js
@@ -640,7 +606,6 @@ const updateUser = (user, properties, isAdmin) => {
   if (!isAdmin) {
     throw new Error("Not authorized");
   }
-
   user.setProperties(properties);
 };
 
@@ -654,18 +619,6 @@ const sayHello = () => console.log("Hello!");
 ```
 
 ---
-
-### Aside: React
-
-Since we will be spending much of our time this semester in React, it is worthwhile to point out at this time that React - at its most basic - is an alternate way to create reusable DOM elements.
-
-Open `other > React > 0-no-react.html` in a browser using [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) and complete the function.
-
-The third file, `2-react-jsx.html`, uses [Babel](https://babeljs.io) to compile JSX - an html-like feature.
-
----
-
-<!-- end aside  -->
 
 ## EXERCISE II Content Generation with an Array of Objects
 
@@ -707,7 +660,7 @@ const navItemsObject = [
 
 Add the links using `navItemsObject` instead of `navItemsArray`.
 
-Note the the 'dot' accessor notation for accessing a value from an object (and the addition of the anchor tags):
+Note the the 'dot' accessor notation (`item.link`) for accessing a value from an object (and the addition of the anchor tags):
 
 ```js
 navItemsObject.forEach(function (item) {
@@ -719,29 +672,17 @@ navItemsObject.forEach(function (item) {
 
 Navigate and inspect the code and note that we now have anchor tags with page fragment links in our html and are able to navigate within our page.
 
-Note: if we wanted we could have derived the hash (href) from the Array values:
-
-```js
-for (let i = 0; i < navItemsArray.length; i++) {
-  let listItem = document.createElement("li");
-  listItem.innerHTML = `<a href="#${navItemsArray[i].toLowerCase()}">${navItemsArray[i]}</a>`;
-  navList.append(listItem);
-}
-```
-
-(IRL this would rarely be the case.)
-
-### Array Methods
+## Array Methods
 
 JavaScript gives us several tools for iterating over the items in an array. We could have used a for loop, and it's arguably much simpler. So why should we learn about `.forEach`?
 
-Here's the biggest advantage: `forEach` is part of a family of array iteration methods. Taken as a whole, this family allows us to do all sorts of things, like finding a particular item in the array, filtering a list, and much more.
+`forEach` is part of a family of array looping or "iteration" methods. Taken as a whole, this family allows us to do all sorts of things, like finding a particular item in the array, filtering an Array, and much more.
 
-All of the methods in this family follow the same basic structure. For example, they all support the optional index parameter we just looked at!
+All of the methods in this family follow the same basic structure. For example, they all support the optional index parameter.
 
 Let's look at another member of this family: the filter method.
 
-#### Array.prototype.filter()
+### Array.prototype.filter()
 
 Note the inventors sample data in `navitems.js`:
 
@@ -762,18 +703,17 @@ Filter the list of inventors for those who were born in the 1500's.
 In the console:
 
 ```js
-const fifteen = inventors.filter(filterInventors);
-
-function filterInventors(inventor) {
-  if (inventor.year >= 1500 && inventor.year <= 1599) {
-    return true; // keep it
-  }
-}
-
+const fifteen = inventors.filter(
+  function(inventor) {
+    return inventor.year >= 1500 && inventor.year < 1600
+  } 
+);
 console.table(fifteen);
 ```
 
-Refactor using an and `&&` operator together with an arrow function with implicit return:
+Note the use of the [`&&` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND).
+
+We typically see this with an arrow function (with implicit return):
 
 ```js
 const fifteen = inventors.filter(
@@ -804,9 +744,9 @@ console.log(studentsWhoPassed);
 
 In many ways, filter is very similar to forEach. It takes a callback function, and that callback function will be called once per item in the array.
 
-Unlike forEach, however, filter produces a value. Specifically, it produces a new array which contains a subset of items from the original array.
+Unlike forEach, however, filter produces a value. Specifically, it produces or "returns" a new array which contains a subset of items from the original array.
 
-Typically, our callback function should return a boolean value, either true or false. The filter method calls this function once for every item in the array. If the callback returns true, this item is included in the new array. Otherwise, it's excluded.
+The callback function inside filter should return a boolean value, either true or false. The filter method calls this function once for every item in the array. If the callback returns true, this item is included in the new array. Otherwise, it's excluded.
 
 Note: The filter method doesn't modify or _mutate_ the original array. This is not true for all of the array methods and it is an important distinction.
 
@@ -823,16 +763,16 @@ nums.pop();
 console.log(nums); // Changed: [5, 12, 15, 31]
 ```
 
-#### Array.prototype.map()
+### Array.prototype.map()
 
-`map` is quite a lot like forEach. We give it a callback function, and it iterates over the array, calling the function once for each item in the array.
+`map` is similar to forEach. We provide a callback function, and it iterates over the array, calling the function once for each item in the array.
 
 Here's the big difference, though: map produces a brand new array, full of transformed values.
 
 The forEach function will always return undefined:
 
 ```js
-onst nums = [1, 2, 3];
+const nums = [1, 2, 3];
 
 const result = nums.forEach(num => num + 1);
 
@@ -877,7 +817,7 @@ Array.map is frequently used to generate html:
 .map((inventor) => `<li>${inventor.first}, ${inventor.last}</li>`)
 ```
 
-#### Array.prototype.sort()
+### Array.prototype.sort()
 
 Sort the inventors by birthdate, oldest to youngest:
 
@@ -889,9 +829,10 @@ const ordered = inventors.sort(function (a, b) {
     return -1;
   }
 });
+console.table(ordered);
 ```
 
-#### Array.prototype.reduce()
+### Array.prototype.reduce()
 
 How many years did all the inventors live?
 
@@ -901,9 +842,11 @@ const totalYears = inventors.reduce((total, inventor) => {
 }, 0);
 ```
 
+These  **declarative** as opposed to **imperative** methods, `.map`, `.filter`, `reduce`, `sort` and others are _the prefered_ means of working with data - and are especially important for the effective use of React. 
+
 ## EXERCISE III - Using Array.prototype.map()
 
-Let's try creating the list items using `map()` and template strings:
+Let's create the list items using `Array.map()` and template strings:
 
 ```js
 const nav = document.querySelector(".main-menu");
@@ -920,6 +863,8 @@ console.log(markup);
 
 nav.innerHTML = markup;
 ```
+
+Note the use of nested template strings here. We are using a template string to create the markup for the list items, and then we are using another template string to create the markup for the entire list.
 
 Join the array to avoid the comma:
 
@@ -941,26 +886,22 @@ Finally, refactor using an arrow function:
 const markup = `
 <ul>
   ${navItemsObject
-    .map((item) => `<li><a href="${item.link}">${item.label}</a></li>`)
+    .map( item => `<li><a href="${item.link}">${item.label}</a></li>`)
     .join("")}
 </ul>
 `;
 ```
 
-Note
 
-- the use of nested template strings here
 - `nav.append(navList)` is now `nav.innerHTML = markup` since we no longer use `document.createElement()`.
-
-These methods, `.map`, `.filter` and the others are _the prefered_ means of working with data - especially in React. They are **declarative** as opposed to **imperative** and are important methods in the functional programmer's toolkit.
 
 ## Responsive Navigation Bug
 
-Note: examine the responsive navigation on small screens using the device toolbar. The close button has been lost due to the use of `nav.innerHTML = markup`. We essentially blew out all the html and replaced it with our own.
+Examine the responsive navigation on small screens using the device toolbar. The close button has been lost due to the use of `nav.innerHTML = markup`. We essentially blew out all the html and replaced it with our own - the anchor tag is missing.
 
 There are a number of ways to resolve this.
 
-One method might be to just cut the code from `index.html` and paste it into our JavaScript:
+One might be to just cut the anchor tag from `index.html` and paste it into our JavaScript:
 
 ```js
 const markup = `
@@ -981,7 +922,7 @@ const markup = `
 `;
 ```
 
-Another might be to leave the code in the HTML and add an element to the DOM to receive our generated HTML:
+We will leave the code in the HTML and add an element to the DOM to receive our generated navigational HTML:
 
 ```html
 <nav id="main-menu" class="main-menu" aria-label="Main menu">
@@ -994,7 +935,7 @@ Another might be to leave the code in the HTML and add an element to the DOM to 
     <span class="sr-only">Close main menu</span>
     <span class="fa fa-close" aria-hidden="true"></span>
   </a>
-  <!-- HERE before the close of </nav> -->
+  <!-- ADD HERE before the close of </nav> -->
   <span id="main-nav"></span>
 </nav>
 ```
@@ -1005,9 +946,15 @@ And add the markup to it:
 nav.querySelector("#main-nav").innerHTML = markup;
 ```
 
-## Modular Code 
+### Modular Code 
 
-Create `js/modules/nav.js` and move the code from `index.js` to it in an exported function:
+Add `type="module"` to the script tag in `index.html`:
+
+```js
+<script type="module" src="js/index.js"></script>
+```
+
+Create `src/js/modules/nav.js` and move the code from `index.js` to it in an exported function:
 
 ```js
 export function makeNav() {
@@ -1034,13 +981,25 @@ import { makeNav } from "./modules/nav.js";
 makeNav();
 ```
 
-We should export and import the `navItemsObject` as well.
+We should export and import the `navItemsObject` as well. 
+
+Remove `<script src="js/modules/navitems.js"></script>` from index.html
+
+In navitems.js at the bottom: `export default navItemsObject;`
+
+In `modules/nav.js` at the top:
+
+```js
+import navItemsObject from "./navitems.js";
+```
+
+We are using the `import` and `export` statements. These are part of the [ES6 module system](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules). Note the difference between `export default` and `export`.
 
 ## AJAX and APIs
 
 _AJAX stands for Asynchronous JavaScript And XML. In a nutshell, it is the use of the XMLHttpRequest object to communicate with servers. It can send and receive information in various formats, including JSON, XML, HTML, and text files. AJAX’s most appealing characteristic is its “asynchronous” nature, which means it can communicate with the server, exchange data, and update the page without having to refresh the page._ - [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX/Getting_Started)
 
-An API (Application Programming Interface) is a set of definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop a computer program by providing all the building blocks, which are then put together by the programmer.
+An API (Application Programming Interface) is a set of definitions, communication protocols, and tools for building software. In general terms, it is a set of clearly defined methods of communication among various components. A good API makes it easier to develop by providing all the building blocks, which are then put together by the programmer.
 
 ## Adding Content
 
@@ -1052,24 +1011,24 @@ Note there is a [hard limit](https://developer.nytimes.com/faq#a11) of 10,000 re
 
 The specific API endpoint for this is their [top stories endpoint](https://developer.nytimes.com/docs/top-stories-product/1/overview). It lets us request the top stories from a specific section of their publication.
 
-Start by removing the existing HTML content (all the sections) from the site-wrap div in `index.html` and add some boilerplate:
+Start by removing the existing HTML content (all the sections and the site wrap div) from the site-wrap div in `index.html` and add some boilerplate:
 
 ```html
-<div class="site-wrap">
+<main class="site-wrap">
   <h2>Welcome!</h2>
   <p>
     All the news you need for your leisure activities courtesy of the New
     York Times.
   </p>
   <p>To get started make a selection above.</p>
-</div>
+</main>
 ```
 
 Store the API key, a template string with the complete URL, and the element we want to manipulate (`.site-wrap`) in a variable:
 
 ```js
 const root = document.querySelector(".site-wrap");
-const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0"; // note this is my API key
+const nytapi = "uQG4jhIEHKHKm0qMKGcTHqUgAolr1GM0"; // note this should be your API key
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 ```
 
@@ -1105,7 +1064,7 @@ fetch(nytUrl)
   });
 ```
 
-Most developers will use arrow functions:
+Most prefer to use arrow functions (for obvious reasons):
 
 ```js
 fetch(nytUrl)
@@ -1144,8 +1103,8 @@ Let's use the techniques we covered earlier to create a DOM element for each of 
 ```js
 function renderStories() {
   let data = JSON.parse(localStorage.getItem("stories"));
-  data.results.forEach(function (story) {
-    var storyEl = document.createElement("div");
+  data.results.forEach( (story) => {
+    let storyEl = document.createElement("div");
     storyEl.className = "entry";
     storyEl.innerHTML = `
       <h3>${story.title}</h3>
@@ -1162,7 +1121,7 @@ Expand it to include images and abstracts:
 function renderStories() {
   let data = JSON.parse(localStorage.getItem("stories"));
   data.results.forEach((story) => {
-    var storyEl = document.createElement("div");
+    let storyEl = document.createElement("div");
     storyEl.className = "entry";
     storyEl.innerHTML = `
     <img src="${story.multimedia[0].url}" alt="${story.title}" />
@@ -1227,14 +1186,14 @@ function renderStories() {
 }
 ```
 
-Create a module for the fetching operatiosn in `js/modules/fetch-stories.js`:
+Create a module for the fetching operatiosn in `app/js/modules/fetch-stories.js`:
 
 ```js
 const root = document.querySelector(".site-wrap");
-const nytapi = "KgGi6DjX1FRV8AlFewvDqQ8IYFGzAcHM"; // note this is my API key
+const nytapi = "KgGi6DjX1FRV8AlFewvDqQ8IYFGzAcHM"; // note this should be your API key
 const nytUrl = `https://api.nytimes.com/svc/topstories/v2/travel.json?api-key=${nytapi}`;
 
-export function fetchStories() {
+export function fetch() {
   fetch(nytUrl)
     .then((response) => response.json())
     .then((myJson) => localStorage.setItem("stories", JSON.stringify(myJson)))

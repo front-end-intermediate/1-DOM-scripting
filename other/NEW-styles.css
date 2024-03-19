@@ -121,7 +121,7 @@ https://medium.com/@heyoka/responsive-pure-css-off-canvas-hamburger-menu-aebc8d1
   padding-top: 2.5em;
   min-height: 100%;
   width: 200px;
-  background-color: var(--bgcolor);
+  background-color: #007eb6;
 }
 /* Make links block to make them fully clickable on mobile. Remember this is finger navigation, so include plenty of clickable area. */
 .main-menu a {
