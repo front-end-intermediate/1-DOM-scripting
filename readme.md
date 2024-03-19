@@ -1128,7 +1128,7 @@ function renderStories() {
     storyEl.innerHTML = `
     <img src="${story.multimedia[0].url}" alt="${story.title}" />
       <div>
-        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <h3><a target="_blank" href="${story.url}">${story.title}</a></h3>
         <p>${story.abstract}</p>
       </div>
       `;
@@ -1179,7 +1179,7 @@ function renderStories() {
     }" />
 
       <div>
-        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <h3><a target="_blank" href="${story.url}">${story.title}</a></h3>
         <p>${story.abstract}</p>
       </div>
       `;
@@ -1213,7 +1213,7 @@ function renderStories() {
     }" />
 
       <div>
-        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <h3><a target="_blank" href="${story.url}">${story.title}</a></h3>
         <p>${story.abstract}</p>
       </div>
       `;
@@ -1334,7 +1334,7 @@ function renderStories(section) {
         story.title
       }" />
       <div>
-        <h3><a target="_blank" href="${story.short_url}">${story.title}</a></h3>
+        <h3><a target="_blank" href="${story.url}">${story.title}</a></h3>
         <p>${story.abstract}</p>
       </div>
       `;
