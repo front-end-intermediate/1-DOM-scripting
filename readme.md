@@ -7,6 +7,7 @@
     - [Reading](#reading)
   - [Homework](#homework)
   - [Homework - week one and two](#homework---week-one-and-two)
+    - [Homework Assignment - NY Times articles display](#homework-assignment---ny-times-articles-display)
   - [Summary of Tools and Technology](#summary-of-tools-and-technology)
   - [Today's Exercise](#todays-exercise)
     - [Today's VSCode Extensions](#todays-vscode-extensions)
@@ -74,6 +75,19 @@ Online reading and videos will be assigned.
 Homework will be handed in via Github and then alerting me via email - daniel.deverell@nyu.edu. I can schedule special sessions for those who require assistance setting up Git and Github.
 
 ## Homework - week one and two
+
+### Homework Assignment - NY Times articles display
+
+Review the `filter` and `sort` array methods on mdn and in this readme.
+
+- use `filter` to remove articles that do not have the exact section name (i.e. for books only display those with ` "section": "books",`) before they are displayed on the page
+- sort the articles by title before they are displayed on the page
+- sign up to NYTimes developer, create an app and use your own api key
+- (optional) use a button in the UI to run the sort and filter
+
+You should probably work inside the `setLocalStorage` function but feel free to arrange things as you see fit
+
+---
 
 - Install [Git](https://git-scm.com)
 - Install [NodeJS](https://nodejs.org)

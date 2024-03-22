@@ -35,6 +35,7 @@ function fetchArticles(section) {
 }
 
 function setLocalStorage(section, myJson) {
+    console.log(myJson);
     localStorage.setItem(section, JSON.stringify(myJson));
     renderStories(section);
 }
@@ -62,6 +63,7 @@ function renderStories(section) {
             <div>
               <h3><a target="_blank" href="${story.url}">${story.title}</a></h3>
               <p>${story.abstract}</p>
+              <p>${story.section}</p>
             </div>
             `;
             root.prepend(storyEl);
